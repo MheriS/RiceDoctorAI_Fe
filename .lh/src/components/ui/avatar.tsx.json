@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/ui/avatar.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1753253377462,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1753271686719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,25 @@\n-import * as React from \"react\"\n-import * as AvatarPrimitive from \"@radix-ui/react-avatar\"\n+\"use client\";\n \n-import { cn } from \"./utils\"\n+import * as React from \"react\";\n+import * as AvatarPrimitive from \"@radix-ui/react-avatar\";\n \n+import { cn } from \"./utils\";\n+\n function Avatar({\n   className,\n   ...props\n }: React.ComponentProps<typeof AvatarPrimitive.Root>) {\n   return (\n     <AvatarPrimitive.Root\n       data-slot=\"avatar\"\n       className={cn(\n-        \"relative flex size-8 shrink-0 overflow-hidden rounded-full\",\n-        className\n+        \"relative flex size-10 shrink-0 overflow-hidden rounded-full\",\n+        className,\n       )}\n       {...props}\n     />\n-  )\n+  );\n }\n \n function AvatarImage({\n   className,\n@@ -28,9 +30,9 @@\n       data-slot=\"avatar-image\"\n       className={cn(\"aspect-square size-full\", className)}\n       {...props}\n     />\n-  )\n+  );\n }\n \n function AvatarFallback({\n   className,\n@@ -40,12 +42,12 @@\n     <AvatarPrimitive.Fallback\n       data-slot=\"avatar-fallback\"\n       className={cn(\n         \"bg-muted flex size-full items-center justify-center rounded-full\",\n-        className\n+        className,\n       )}\n       {...props}\n     />\n-  )\n+  );\n }\n \n-export { Avatar, AvatarImage, AvatarFallback }\n+export { Avatar, AvatarImage, AvatarFallback };\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1753253377462,
+            "name": "Commit-0",
+            "content": "import * as React from \"react\"\nimport * as AvatarPrimitive from \"@radix-ui/react-avatar\"\n\nimport { cn } from \"./utils\"\n\nfunction Avatar({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Root>) {\n  return (\n    <AvatarPrimitive.Root\n      data-slot=\"avatar\"\n      className={cn(\n        \"relative flex size-8 shrink-0 overflow-hidden rounded-full\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarImage({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Image>) {\n  return (\n    <AvatarPrimitive.Image\n      data-slot=\"avatar-image\"\n      className={cn(\"aspect-square size-full\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AvatarFallback({\n  className,\n  ...props\n}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {\n  return (\n    <AvatarPrimitive.Fallback\n      data-slot=\"avatar-fallback\"\n      className={cn(\n        \"bg-muted flex size-full items-center justify-center rounded-full\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Avatar, AvatarImage, AvatarFallback }\n"
+        }
+    ]
+}

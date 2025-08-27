@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/ClassificationHistory.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1753252832621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1753252832621,
+            "name": "Commit-0",
+            "content": "import { Calendar, Eye } from 'lucide-react';\r\nimport { Card, CardContent, CardHeader, CardTitle } from './ui/card';\r\nimport { Badge } from './ui/badge';\r\nimport { Button } from './ui/button';\r\nimport { ImageWithFallback } from './figma/ImageWithFallback';\r\n\r\ninterface HistoryItem {\r\n  id: string;\r\n  date: string;\r\n  image: string;\r\n  disease: string;\r\n  confidence: number;\r\n  severity: 'low' | 'medium' | 'high';\r\n}\r\n\r\ninterface ClassificationHistoryProps {\r\n  history: HistoryItem[];\r\n  onViewDetail: (item: HistoryItem) => void;\r\n}\r\n\r\nexport function ClassificationHistory({ history, onViewDetail }: ClassificationHistoryProps) {\r\n  if (history.length === 0) {\r\n    return (\r\n      <Card>\r\n        <CardHeader>\r\n          <CardTitle>Riwayat Klasifikasi</CardTitle>\r\n        </CardHeader>\r\n        <CardContent>\r\n          <p className=\"text-muted-foreground text-center py-8\">\r\n            Belum ada riwayat klasifikasi\r\n          </p>\r\n        </CardContent>\r\n      </Card>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <Card>\r\n      <CardHeader>\r\n        <CardTitle>Riwayat Klasifikasi</CardTitle>\r\n      </CardHeader>\r\n      <CardContent>\r\n        <div className=\"space-y-4\">\r\n          {history.map((item) => (\r\n            <div key={item.id} className=\"flex items-center space-x-4 p-4 border rounded-lg\">\r\n              <ImageWithFallback\r\n                src={item.image}\r\n                alt=\"Rice plant\"\r\n                className=\"w-16 h-16 object-cover rounded-md\"\r\n              />\r\n              <div className=\"flex-1\">\r\n                <div className=\"flex items-center justify-between\">\r\n                  <h4>{item.disease}</h4>\r\n                  <Badge \r\n                    variant={item.severity === 'high' ? 'destructive' : 'secondary'}\r\n                    className=\"capitalize\"\r\n                  >\r\n                    {item.severity}\r\n                  </Badge>\r\n                </div>\r\n                <div className=\"flex items-center space-x-4 text-sm text-muted-foreground mt-1\">\r\n                  <div className=\"flex items-center space-x-1\">\r\n                    <Calendar className=\"h-3 w-3\" />\r\n                    <span>{item.date}</span>\r\n                  </div>\r\n                  <span>Kepercayaan: {item.confidence}%</span>\r\n                </div>\r\n              </div>\r\n              <Button\r\n                variant=\"outline\"\r\n                size=\"sm\"\r\n                onClick={() => onViewDetail(item)}\r\n              >\r\n                <Eye className=\"h-4 w-4 mr-2\" />\r\n                Detail\r\n              </Button>\r\n            </div>\r\n          ))}\r\n        </div>\r\n      </CardContent>\r\n    </Card>\r\n  );\r\n}"
+        }
+    ]
+}

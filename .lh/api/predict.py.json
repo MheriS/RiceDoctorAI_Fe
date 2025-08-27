@@ -1,0 +1,22 @@
+{
+    "sourceFile": "api/predict.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1753577526497,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1753578022463,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,35 +1,39 @@\n-# api/predict.py\n-from fastapi import FastAPI, UploadFile, File\n+from fastapi import FastAPI, File, UploadFile\n from fastapi.middleware.cors import CORSMiddleware\n import numpy as np\n import cv2\n import pickle\n-from layers import conv_layer, pool_layer, reshape_layer, weights_layer, ReLU, dropout_layer, run_batch\n+from api.layers import run_batch  # <- dari layers.py\n+import io\n \n app = FastAPI()\n \n+# Allow all origins (React dev)\n app.add_middleware(\n     CORSMiddleware,\n-    allow_origins=[\"*\"],  # atau ganti dengan domain React kamu\n+    allow_origins=[\"*\"],  # untuk dev, nanti bisa dibatasi\n+    allow_credentials=True,\n     allow_methods=[\"*\"],\n     allow_headers=[\"*\"],\n )\n \n-# Load model\n+# Load CNN model yang telah disimpan\n with open(\"model/rice_disease_model.pkl\", \"rb\") as f:\n     CNN = pickle.load(f)\n \n-def preprocess_image(file_bytes):\n-    np_img = np.frombuffer(file_bytes, np.uint8)\n-    img = cv2.imdecode(np_img, cv2.IMREAD_COLOR)\n-    img = cv2.resize(img, (128, 128))  # sesuaikan dengan input model kamu\n+@app.post(\"/predict\")\n+async def predict(file: UploadFile = File(...)):\n+    image_bytes = await file.read()\n+    img_array = np.frombuffer(image_bytes, np.uint8)\n+    img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)\n+    img = cv2.resize(img, (64, 64))  # Sesuai dengan training\n     img = img / 255.0\n-    return np.expand_dims(img, axis=0)\n+    img = np.expand_dims(img, axis=0)  # batch\n+    img = img.astype(np.float32)\n \n-@app.post(\"/predict\")\n-async def predict(file: UploadFile = File(...)):\n-    contents = await file.read()\n-    img = preprocess_image(contents)\n-    output = run_batch(CNN, img, training=False)[-1]\n-    predicted_class = int(np.argmax(output, axis=1)[0])\n-    return {\"prediction\": predicted_class}\n+    # Forward pass\n+    outputs = run_batch(CNN, img, training=False)\n+    logits = outputs[-1][0]\n+    predicted_class = int(np.argmax(logits))\n+\n+    return {\"class\": predicted_class}\n"
+                }
+            ],
+            "date": 1753577526497,
+            "name": "Commit-0",
+            "content": "# api/predict.py\nfrom fastapi import FastAPI, UploadFile, File\nfrom fastapi.middleware.cors import CORSMiddleware\nimport numpy as np\nimport cv2\nimport pickle\nfrom layers import conv_layer, pool_layer, reshape_layer, weights_layer, ReLU, dropout_layer, run_batch\n\napp = FastAPI()\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],  # atau ganti dengan domain React kamu\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n\n# Load model\nwith open(\"model/rice_disease_model.pkl\", \"rb\") as f:\n    CNN = pickle.load(f)\n\ndef preprocess_image(file_bytes):\n    np_img = np.frombuffer(file_bytes, np.uint8)\n    img = cv2.imdecode(np_img, cv2.IMREAD_COLOR)\n    img = cv2.resize(img, (128, 128))  # sesuaikan dengan input model kamu\n    img = img / 255.0\n    return np.expand_dims(img, axis=0)\n\n@app.post(\"/predict\")\nasync def predict(file: UploadFile = File(...)):\n    contents = await file.read()\n    img = preprocess_image(contents)\n    output = run_batch(CNN, img, training=False)[-1]\n    predicted_class = int(np.argmax(output, axis=1)[0])\n    return {\"prediction\": predicted_class}\n"
+        }
+    ]
+}

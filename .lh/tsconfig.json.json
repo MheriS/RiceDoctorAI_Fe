@@ -1,0 +1,18 @@
+{
+    "sourceFile": "tsconfig.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1753251249626,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1753251249626,
+            "name": "Commit-0",
+            "content": "{\n  \"files\": [],\n  \"references\": [\n    {\n      \"path\": \"./tsconfig.app.json\"\n    },\n    {\n      \"path\": \"./tsconfig.node.json\"\n    }\n  ],\n  \"compilerOptions\": {\n    \"baseUrl\": \".\",\n    \"paths\": {\n      \"@/*\": [\"./src/*\"]\n    }\n  }\n}"
+        }
+    ]
+}

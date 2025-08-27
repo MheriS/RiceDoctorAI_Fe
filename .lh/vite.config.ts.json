@@ -1,0 +1,18 @@
+{
+    "sourceFile": "vite.config.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1753251327336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1753251327336,
+            "name": "Commit-0",
+            "content": "import path from \"path\"\nimport tailwindcss from \"@tailwindcss/vite\"\nimport react from \"@vitejs/plugin-react\"\nimport { defineConfig } from \"vite\"\n \n// https://vite.dev/config/\nexport default defineConfig({\n  plugins: [react(), tailwindcss()],\n  resolve: {\n    alias: {\n      \"@\": path.resolve(__dirname, \"./src\"),\n    },\n  },\n})"
+        }
+    ]
+}
