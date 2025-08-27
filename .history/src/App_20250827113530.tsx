@@ -190,13 +190,13 @@ export default function App() {
             {!hasReadGuide && (
               <Card className="border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-slate-700 dark:text-slate-300">
+                  <CardTitle className="flex items-center space-x-2 text-orange-800">
                     <Info className="h-5 w-5" />
                     <span>Penting: Baca Panduan Terlebih Dahulu</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-slate-600 dark:text-slate-400">
+                  <div className="text-orange-700">
                     <p className="mb-3">
                       Untuk mendapatkan hasil klasifikasi yang optimal, pastikan Anda telah memahami cara pengambilan foto yang benar:
                     </p>

@@ -196,7 +196,7 @@ export default function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-slate-600 dark:text-slate-400">
+                  <div className="text-orange-700">
                     <p className="mb-3">
                       Untuk mendapatkan hasil klasifikasi yang optimal, pastikan Anda telah memahami cara pengambilan foto yang benar:
                     </p>

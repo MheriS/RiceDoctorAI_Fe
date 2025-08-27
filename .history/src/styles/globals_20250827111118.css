@@ -270,7 +270,6 @@ html {
   border: none !important;
 }
 
-/* menghilangkan border saat klik di tab */
 [data-slot="tabs-trigger"]:focus,
 [data-slot="tabs-trigger"]:focus-visible {
   outline: none !important;
@@ -278,13 +277,15 @@ html {
   -webkit-tap-highlight-color: transparent !important;
 }
 
-/* globals.css, menghilangkan border saat klik di header */
-.menu-toggle:focus,
-.menu-toggle:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
+/* globals.css */
+.btn-toggle {
+  @apply !bg-white !text-black !hover:bg-blue-700;
 }
+
+.dark .btn-toggle {
+  @apply !bg-slate-800 !text-white !hover:!bg-blue-400;
+}
+
 
 /* Additional slate color utilities for dark mode */
 .dark .bg-slate-800 {

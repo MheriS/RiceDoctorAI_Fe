@@ -154,7 +154,7 @@
 }
 
 @layer base {
-  input, textarea, select, button {
+  * {
     @apply border-border outline-ring/50;
   }
 
@@ -266,26 +266,6 @@ html {
   color: rgb(226 232 240) !important; /* slate-200 */
 }
 
-:not(.dark) [data-slot="tabs-trigger"] {
-  border: none !important;
-}
-
-/* menghilangkan border saat klik di tab */
-[data-slot="tabs-trigger"]:focus,
-[data-slot="tabs-trigger"]:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-/* globals.css, menghilangkan border saat klik di header */
-.menu-toggle:focus,
-.menu-toggle:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
 /* Additional slate color utilities for dark mode */
 .dark .bg-slate-800 {
   background-color: rgb(30 41 59) !important;
@@ -307,7 +287,7 @@ html {
 .dark [data-slot="button"]:not([class*="variant-"]) {
   background-color: rgb(30 41 59) !important; /* slate-800 */
   color: rgb(255 255 255) !important; /* white */
-  border: 1px solid rgb(51 65 85) !important; /* slate-600 */
+  border: 1px solid rgb(51 65 85); /* slate-600 */
 }
 
 .dark [data-slot="button"]:not([class*="variant-"]):hover {
@@ -316,7 +296,7 @@ html {
 }
 
 .dark [data-slot="button"]:not([class*="variant-"]):focus-visible {
-  outline: 2px solid rgb(148 163 184) !important; /* slate-400 */
+  outline: 2px solid rgb(148 163 184); /* slate-400 */
   outline-offset: 2px;
 }
 

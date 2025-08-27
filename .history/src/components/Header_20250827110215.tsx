@@ -21,15 +21,7 @@ export function Header({ onMenuToggle, darkMode, onDarkModeToggle }: HeaderProps
     <header className="border-b bg-card">
       <div className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onMenuToggle}
-            className=" menu-toggle
-              !bg-white !text-black !hover:bg-blue-700 
-              dark:!bg-slate-800 dark:!text-white dark:!hover:bg-blue-400
-            "
-          >
+          <Button variant="ghost" size="sm" onClick={onMenuToggle} className="bg-primary text-primary-foreground hover:bg-primary/90">
             <Menu className="h-5 w-5" />
           </Button>
           <div>
@@ -39,8 +31,7 @@ export function Header({ onMenuToggle, darkMode, onDarkModeToggle }: HeaderProps
         </div>
 
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="sm" onClick={onDarkModeToggle} className="menu-toggle !bg-white !text-black !hover:bg-blue-700 
-              dark:!bg-slate-800 dark:!text-white dark:!hover:bg-blue-400">
+          <Button variant="ghost" size="sm" onClick={onDarkModeToggle}>
             {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
 

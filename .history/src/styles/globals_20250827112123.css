@@ -270,17 +270,8 @@ html {
   border: none !important;
 }
 
-/* menghilangkan border saat klik di tab */
 [data-slot="tabs-trigger"]:focus,
 [data-slot="tabs-trigger"]:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-/* globals.css, menghilangkan border saat klik di header */
-.menu-toggle:focus,
-.menu-toggle:focus-visible {
   outline: none !important;
   box-shadow: none !important;
   -webkit-tap-highlight-color: transparent !important;

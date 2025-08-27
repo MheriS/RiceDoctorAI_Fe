@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1753252832620,
@@ -36,6 +36,18 @@
                 {
                     "date": 1756220214574,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import React, { useState, useRef } from 'react';\r\n import { Upload, Camera, X } from 'lucide-react';\r\n import { Button } from './ui/button';\r\n import { Card } from './ui/card';\r\n-import { ImageWithFallback } from './figma/ImageWithFallback';\r\n+import { ImageWithFallback } from './figma/ImageWithFallback'; // Tetap gunakan ini\r\n \r\n // Tambahkan definisi tipe untuk respons dari API Flask\r\n // Ganti dengan tipe data yang benar jika berbeda\r\n interface PredictionResult {\r\n@@ -98,14 +98,15 @@\n   // ----------------------------------------------------\r\n \r\n   if (uploadedImage) {\r\n     return (\r\n-      <Card className=\"relative\">\r\n-        <div className=\"relative\">\r\n+      <Card className=\"relative overflow-hidden\"> {/* 👈 Tambahkan overflow-hidden */}\r\n+        <div className=\"relative w-full h-auto\"> {/* 👈 Sesuaikan ukuran div */}\r\n           <ImageWithFallback\r\n             src={uploadedImage}\r\n             alt=\"Uploaded rice plant\"\r\n-            className=\"w-full h-64 object-cover rounded-lg\"\r\n+            // Ubah class menjadi object-cover untuk mengisi frame\r\n+            className=\"w-full h-full object-cover rounded-lg\"\r\n           />\r\n           <Button\r\n             variant=\"destructive\"\r\n             size=\"sm\"\r\n@@ -161,5 +162,5 @@\n         className=\"hidden\"\r\n       />\r\n     </Card>\r\n   );\r\n-}\n\\ No newline at end of file\n+}\r\n"
+                },
+                {
+                    "date": 1756264485303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -146,9 +146,10 @@\n               Seret gambar ke sini atau klik untuk memilih file\r\n             </p>\r\n           </div>\r\n           <div className=\"flex space-x-2\">\r\n-            <Button variant=\"outline\" type=\"button\">\r\n+            <Button variant=\"outline\" type=\"button\" className=\"bg-blue-600 text-white hover:bg-blue-700\r\n+               dark:bg-blue-500 dark:hover:bg-blue-600\">\r\n               <Camera className=\"h-4 w-4 mr-2\" />\r\n               Pilih File\r\n             </Button>\r\n           </div>\r\n"
+                },
+                {
+                    "date": 1756264520206,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -146,10 +146,10 @@\n               Seret gambar ke sini atau klik untuk memilih file\r\n             </p>\r\n           </div>\r\n           <div className=\"flex space-x-2\">\r\n-            <Button variant=\"outline\" type=\"button\" className=\"bg-blue-600 text-white hover:bg-blue-700\r\n-               dark:bg-blue-500 dark:hover:bg-blue-600\">\r\n+            <Button variant=\"outline\" type=\"button\" className=\"!bg-blue-600 !text-white hover:!bg-blue-700\r\n+               dark:!bg-blue-500 dark:hover:!bg-blue-600\">\r\n               <Camera className=\"h-4 w-4 mr-2\" />\r\n               Pilih File\r\n             </Button>\r\n           </div>\r\n"
+                },
+                {
+                    "date": 1756269732891,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -136,10 +136,10 @@\n       onClick={handleClick}\r\n     >\r\n       <div className=\"p-8 text-center\">\r\n         <div className=\"flex flex-col items-center space-y-4\">\r\n-          <div className=\"p-4 bg-primary/10 rounded-full\">\r\n-            <Upload className=\"h-8 w-8 text-primary\" />\r\n+          <div className=\"p-4 bg-primary/10 dark:bg-slate-700/50 rounded-full\">\r\n+            <Upload className=\"h-8 w-8 text-primary dark:text-slate-300\" />\r\n           </div>\r\n           <div>\r\n             <h3>Upload Gambar Tanaman Padi</h3>\r\n             <p className=\"text-muted-foreground\">\r\n"
                 }
             ],
             "date": 1753252832620,

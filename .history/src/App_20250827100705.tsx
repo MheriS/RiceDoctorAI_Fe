@@ -137,7 +137,7 @@ export default function App() {
                         data-[state=active]:!bg-white data-[state=active]:!text-black
                         dark:!bg-slate-800 dark:!text-white
                         dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0 !border-none"
+                        focus:outline-none focus:ring-0"
             >
               <Upload className="h-4 w-4" />
               <span>Klasifikasi</span>
@@ -188,15 +188,15 @@ export default function App() {
 
           <TabsContent value="classify" className="space-y-6">
             {!hasReadGuide && (
-              <Card className="border-slate-200 bg-slate-50/50 dark:border-slate-700 dark:bg-slate-800/30">
+              <Card className="border-orange-200 bg-orange-50/50">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2 text-slate-700 dark:text-slate-300">
+                  <CardTitle className="flex items-center space-x-2 text-orange-800">
                     <Info className="h-5 w-5" />
                     <span>Penting: Baca Panduan Terlebih Dahulu</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-slate-600 dark:text-slate-400">
+                  <div className="text-orange-700">
                     <p className="mb-3">
                       Untuk mendapatkan hasil klasifikasi yang optimal, pastikan Anda telah memahami cara pengambilan foto yang benar:
                     </p>
@@ -211,7 +211,7 @@ export default function App() {
                     <Button
                       onClick={handleGoToGuide}
                       variant="ghost"
-                      className="!bg-primary !text-white font-semibold px-4 py-2 rounded-lg flex items-center space-x-2
+                      className="!bg-primary hover:!bg-slate-200 !text-white font-semibold px-4 py-2 rounded-lg flex items-center space-x-2
                                 dark:!bg-slate-800 dark:hover:!bg-slate-700 dark:!text-white"
                     >
                       <Camera className="h-4 w-4" />
@@ -222,8 +222,8 @@ export default function App() {
                     <Button
                       variant="outline"
                       onClick={handleMarkGuideAsRead}
-                      className="!bg-white !text-black hover:!bg-slate-100 !border-slate-300
-                                dark:!bg-slate-800 dark:!text-slate-200 dark:hover:!bg-slate-700 dark:!border-slate-700"
+                      className="border-slate-300 text-slate-700 hover:bg-slate-100
+                                dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700"
                     >
                       Saya Sudah Memahami
                     </Button>

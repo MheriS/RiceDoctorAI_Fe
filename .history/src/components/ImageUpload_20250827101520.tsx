@@ -137,8 +137,8 @@ export function ImageUpload({ onImageUpload, uploadedImage, onClear, onPredictio
     >
       <div className="p-8 text-center">
         <div className="flex flex-col items-center space-y-4">
-          <div className="p-4 bg-primary/10 dark:bg-slate-700/50 rounded-full">
-            <Upload className="h-8 w-8 text-primary dark:text-slate-300" />
+          <div className="p-4 bg-primary/10 rounded-full">
+            <Upload className="h-8 w-8 text-primary" />
           </div>
           <div>
             <h3>Upload Gambar Tanaman Padi</h3>
