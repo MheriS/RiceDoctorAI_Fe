@@ -1,83 +1,148 @@
+// File: src/components/ClassificationHistory.tsx
+
+import React, { useState, useEffect } from 'react';
 import { Calendar, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
 
+// Tipe data yang dibutuhkan
 interface HistoryItem {
-  id: string;
-  date: string;
-  image: string;
-  disease: string;
-  confidence: number;
-  severity: 'low' | 'medium' | 'high';
+    id: string;
+    date: string;
+    image: string;
+    disease: string;
+    confidence: number;
+    severity: 'low' | 'medium' | 'high';
+    image_filename?: string;
 }
 
-interface ClassificationHistoryProps {
-  history: HistoryItem[];
-  onViewDetail: (item: HistoryItem) => void;
-}
+// Komponen ini sekarang akan mengambil datanya sendiri
+export function ClassificationHistory() {
+    // State untuk menyimpan data riwayat dan status loading
+    const [history, setHistory] = useState<HistoryItem[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-export function ClassificationHistory({ history, onViewDetail }: ClassificationHistoryProps) {
-  if (history.length === 0) {
+    // useEffect untuk mengambil data saat komponen pertama kali dirender
+    useEffect(() => {
+        const fetchHistory = async () => {
+            try {
+                const apiUrl = 'http://127.0.0.1:5000/api/history';
+                console.log("Mencoba mengambil data dari URL:", apiUrl); // Untuk debugging
+                
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data: HistoryItem[] = await response.json();
+                setHistory(data);
+
+            } catch (error) {
+                console.error("Gagal memuat riwayat:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchHistory();
+    }, []); // Array kosong berarti efek ini hanya berjalan sekali
+
+    // Fungsi handler untuk tombol detail (bisa Anda kembangkan nanti)
+    const handleViewDetail = (item: HistoryItem) => {
+        console.log('Melihat detail untuk:', item);
+    };
+    
+    // Fungsi helper untuk varian badge
+    const getBadgeVariant = (severity: string) => {
+        if (severity === 'high') return 'destructive';
+        if (severity === 'medium') return 'default';
+        return 'secondary';
+    };
+
+    // Tampilan saat sedang memuat data
+    if (isLoading) {
+        return (
+            <Card className="dark:bg-slate-800 dark:border-slate-700">
+                <CardHeader>
+                    <CardTitle className="dark:text-white">Riwayat Klasifikasi</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center py-8 dark:text-slate-400">
+                    Memuat riwayat...
+                </CardContent>
+            </Card>
+        );
+    }
+
+    // Tampilan jika tidak ada data riwayat
+    if (history.length === 0) {
+        return (
+            <Card className="dark:bg-slate-800 dark:border-slate-700">
+                <CardHeader>
+                    <CardTitle className="dark:text-white">Riwayat Klasifikasi</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground text-center py-8 dark:text-slate-400">
+                        Belum ada riwayat klasifikasi
+                    </p>
+                </CardContent>
+            </Card>
+        );
+    }
+    
+    // Tampilan utama jika data sudah ada
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Riwayat Klasifikasi</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-center py-8">
-            Belum ada riwayat klasifikasi
-          </p>
-        </CardContent>
-      </Card>
+        <Card className="dark:bg-slate-800 dark:border-slate-700">
+            <CardHeader>
+                <CardTitle className="dark:text-white">Riwayat Klasifikasi</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    {history.map((item) => (
+                        <div
+                            key={item.id}
+                            className="flex items-center space-x-4 p-4 border rounded-lg dark:border-slate-700"
+                        >
+                            <img
+                                src={`http://127.0.0.1:5000${item.image}`}
+                                alt={item.disease}
+                                className="w-16 h-16 object-cover rounded-md"
+                                onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150'; }}
+                            />
+                            <div className="flex-1">
+                                <div className="flex items-center justify-between">
+                                    <h4 className="font-bold dark:text-white">{item.disease}</h4>
+                                    <Badge
+                                        variant={getBadgeVariant(item.severity)}
+                                        className="capitalize"
+                                    >
+                                        {item.severity}
+                                    </Badge>
+                                </div>
+                                <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-1 dark:text-slate-400">
+                                    <div className="flex items-center space-x-1">
+                                        <Calendar className="h-3 w-3" />
+                                        <span>{item.date}</span>
+                                    </div>
+                                    <span>Kepercayaan: {(item.confidence).toFixed(2)}%</span>
+                                </div>
+                                {item.image_filename && (
+                                    <p className="text-xs text-gray-500 mt-1 truncate">
+                                        File: {item.image_filename}
+                                    </p>
+                                )}
+                            </div>
+                            <Button
+                                size="sm"
+                                onClick={() => handleViewDetail(item)}
+                                className="!bg-white !text-gray-800 !border-gray-300 hover:!bg-gray-100 dark:!bg-slate-800 dark:!text-white dark:!border-neutral-700 dark:hover:!bg-slate-700"
+                            >
+                                <Eye className="h-4 w-4 mr-2" />
+                                Detail
+                            </Button>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
     );
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Riwayat Klasifikasi</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {history.map((item) => (
-            <div key={item.id} className="flex items-center space-x-4 p-4 border rounded-lg">
-              <ImageWithFallback
-                src={item.image}
-                alt="Rice plant"
-                className="w-16 h-16 object-cover rounded-md"
-              />
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h4>{item.disease}</h4>
-                  <Badge 
-                    variant={item.severity === 'high' ? 'destructive' : 'secondary'}
-                    className="capitalize"
-                  >
-                    {item.severity}
-                  </Badge>
-                </div>
-                <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-1">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="h-3 w-3" />
-                    <span>{item.date}</span>
-                  </div>
-                  <span>Kepercayaan: {item.confidence}%</span>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => onViewDetail(item)}
-              >
-                <Eye className="h-4 w-4 mr-2" />
-                Detail
-              </Button>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
 }
