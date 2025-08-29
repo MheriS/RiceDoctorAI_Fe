@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Alert, AlertDescription } from './ui/alert';
 import { Badge } from './ui/badge';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import contohGambarBenar from '../assets/IMG_0615.jpg';
+import contohGambarSalah from '../assets/IMG_011.jpg';
 
 export function ClassificationGuide() {
   return (
@@ -32,9 +34,9 @@ export function ClassificationGuide() {
               <div className="space-y-3">
                 <div className="border-2 border-green-200 rounded-lg p-4 bg-green-50/50">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300&h=200&fit=crop"
+                    src={contohGambarBenar}
                     alt="Contoh foto yang benar"
-                    className="w-full h-32 object-cover rounded mb-2"
+                    className="w-full h-72 object-contain rounded mb-2"
                   />
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
                     ✓ Benar
@@ -58,11 +60,11 @@ export function ClassificationGuide() {
               <div className="space-y-3">
                 <div className="border-2 border-red-200 rounded-lg p-4 bg-red-50/50">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=300&h=200&fit=crop"
+                    src={contohGambarSalah}
                     alt="Contoh foto yang salah"
-                    className="w-full h-32 object-cover rounded mb-2"
+                    className="w-full h-72 object-contain rounded mb-2"
                   />
-                  <Badge variant="destructive" className="bg-red-100 text-red-800">
+                  <Badge variant="destructive" className="bg-red-100 text-red-900">
                     ✗ Salah
                   </Badge>
                 </div>
