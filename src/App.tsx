@@ -276,47 +276,55 @@ export default function App() {
 
           <TabsContent value="history">
             <ClassificationHistory
-              history={history}
-              onViewDetail={handleViewHistoryDetail}
+              // history={history}
+              // onViewDetail={handleViewHistoryDetail}
             />
           </TabsContent>
 
             <TabsContent value="knowledge" className="space-y-6">
                 <Tabs value={knowledgeTab} onValueChange={setKnowledgeTab}>
-                    <TabsList className="w-full px-2 py-1 bg-muted dark:bg-slate-800 rounded-full gap-2 flex justify-between h-10">
-                        <TabsTrigger
-                            value="guide"
-                            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                            text-muted-foreground dark:text-slate-400
-                                            data-[state=active]:bg-background data-[state=active]:text-foreground
-                                            dark:data-[state=active]:bg-slate-600 dark:data-[state=active]:text-white
-                                            hover:text-foreground dark:hover:text-slate-200"
-                        >
-                            <Camera className="h-4 w-4" />
-                            <span>Cara Foto</span>
-                        </TabsTrigger>
-                        <TabsTrigger
-                            value="diseases"
-                            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                            text-muted-foreground dark:text-slate-400
-                                            data-[state=active]:bg-background data-[state=active]:text-foreground
-                                            dark:data-[state=active]:bg-slate-600 dark:data-[state=active]:text-white
-                                            hover:text-foreground dark:hover:text-slate-200"
-                        >
-                            <Leaf className="h-4 w-4" />
-                            <span>Penyakit</span>
-                        </TabsTrigger>
-                        <TabsTrigger
-                            value="prevention"
-                            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                                            text-muted-foreground dark:text-slate-400
-                                            data-[state=active]:bg-background data-[state=active]:text-foreground
-                                            dark:data-[state=active]:bg-slate-600 dark:data-[state=active]:text-white
-                                            hover:text-foreground dark:hover:text-slate-200"
-                        >
-                            <BookOpen className="h-4 w-4" />
-                            <span>Pencegahan</span>
-                        </TabsTrigger>
+                    <TabsList className="w-full px-2 py-1 bg-muted dark:!bg-slate-800 rounded-full gap-2 flex justify-between h-10">
+                      <TabsTrigger
+                          value="guide"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
+                        !bg-gray-200 !text-black
+                        hover:!bg-gray-300
+                        data-[state=active]:!bg-white data-[state=active]:!text-black
+                        dark:!bg-slate-800 dark:!text-white
+                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
+                        focus:outline-none focus:ring-0"
+                      >
+                          <Camera className="h-4 w-4" />
+                          <span>Cara Foto</span>
+                      </TabsTrigger>
+
+                      <TabsTrigger
+                          value="diseases"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
+                        !bg-gray-200 !text-black
+                        hover:!bg-gray-300
+                        data-[state=active]:!bg-white data-[state=active]:!text-black
+                        dark:!bg-slate-800 dark:!text-white
+                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
+                        focus:outline-none focus:ring-0"
+                      >
+                          <Leaf className="h-4 w-4" />
+                          <span>Penyakit</span>
+                      </TabsTrigger>
+
+                      <TabsTrigger
+                          value="prevention"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
+                        !bg-gray-200 !text-black
+                        hover:!bg-gray-300
+                        data-[state=active]:!bg-white data-[state=active]:!text-black
+                        dark:!bg-slate-800 dark:!text-white
+                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
+                        focus:outline-none focus:ring-0"
+                      >
+                          <BookOpen className="h-4 w-4" />
+                          <span>Pencegahan</span>
+                      </TabsTrigger>
                     </TabsList>
                     <TabsContent value="guide">
                         <ClassificationGuide />
