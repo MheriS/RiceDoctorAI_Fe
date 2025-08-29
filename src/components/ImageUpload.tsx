@@ -1,13 +1,9 @@
-// src/components/ImageUpload.tsx
-
 import React, { useState, useRef } from 'react';
 import { Upload, Camera, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { ImageWithFallback } from './figma/ImageWithFallback'; // Tetap gunakan ini
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
-// Tambahkan definisi tipe untuk respons dari API Flask
-// Ganti dengan tipe data yang benar jika berbeda
 interface PredictionResult {
   prediction: string;
   confidence: number;
@@ -112,6 +108,7 @@ export function ImageUpload({ onImageUpload, uploadedImage, onClear, onPredictio
             size="sm"
             className="absolute top-2 right-2"
             onClick={onClear}
+            type="button"
           >
             <X className="h-4 w-4" />
           </Button>
