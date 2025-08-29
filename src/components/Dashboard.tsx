@@ -83,6 +83,31 @@ export function Dashboard() {
 
     const PIE_COLORS = ['#ef4444', '#f59e0b', '#8b5cf6', '#10b981'];
 
+    // Di dalam komponen Dashboard, sebelum `return`
+
+    // 1. Dapatkan nama bulan ini dan bulan lalu
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const now = new Date();
+    const currentMonthName = monthNames[now.getMonth()];
+    const prevMonthName = monthNames[(now.getMonth() - 1 + 12) % 12]; // Logika untuk menangani Januari
+
+    // 2. Cari total untuk masing-masing bulan dari data API
+    const currentMonthData = dashboardData.classifications_by_month.find(d => d.month === currentMonthName);
+    const prevMonthData = dashboardData.classifications_by_month.find(d => d.month === prevMonthName);
+
+    const currentMonthTotal = currentMonthData?.total || 0;
+    const prevMonthTotal = prevMonthData?.total || 0;
+
+    // 3. Hitung persentase perubahan
+    let percentageChangeText = '';
+    if (prevMonthTotal > 0) {
+    const change = ((currentMonthTotal - prevMonthTotal) / prevMonthTotal) * 100;
+    const sign = change >= 0 ? '+' : '';
+    percentageChangeText = `${sign}${change.toFixed(0)}% dari bulan lalu`;
+    } else if (currentMonthTotal > 0) {
+    percentageChangeText = 'Data baru bulan ini'; // Jika bulan lalu 0
+    }
+
     return (
         <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -94,7 +119,7 @@ export function Dashboard() {
                     <CardContent>
                         <div className="text-2xl font-bold dark:text-white">{totalClassifications}</div>
                         <p className="text-xs text-muted-foreground dark:text-slate-400">
-                            +0% dari bulan lalu
+                            {percentageChangeText}
                         </p>
                     </CardContent>
                 </Card>
