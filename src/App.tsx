@@ -40,7 +40,7 @@ interface PredictionResult {
 
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   // Ubah state `currentDisease` untuk menerima data dari API
@@ -128,62 +128,31 @@ export default function App() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="w-full px-2 py-1 bg-muted dark:!bg-slate-800 rounded-full gap-2 flex justify-between h-10">
-            <TabsTrigger
-              value="classify"
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0 !border-none"
-            >
-              <Upload className="h-4 w-4" />
-              <span>Klasifikasi</span>
-            </TabsTrigger>
-
-            <TabsTrigger
-              value="dashboard"
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0"
-            >
-              <BarChart3 className="h-4 w-4" />
-              <span>Dashboard</span>
-            </TabsTrigger>
-
-            <TabsTrigger
-              value="history"
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0"
-            >
-              <History className="h-4 w-4" />
-              <span>Riwayat</span>
-            </TabsTrigger>
-
-            <TabsTrigger
-              value="knowledge"
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0"
-            >
-              <BookOpen className="h-4 w-4" />
-              <span>Panduan</span>
-            </TabsTrigger>
+          <TabsList
+            className="w-full grid grid-cols-4 gap-1 px-1 py-1 bg-muted dark:!bg-slate-800 rounded-full"
+          >
+            {[
+              { value: "classify", label: "Klasifikasi", Icon: Upload },
+              { value: "dashboard", label: "Dashboard", Icon: BarChart3 },
+              { value: "history", label: "Riwayat", Icon: History },
+              { value: "knowledge", label: "Panduan", Icon: BookOpen },
+            ].map(({ value, label, Icon }) => (
+              <TabsTrigger
+                key={value}
+                value={value}
+                className="flex items-center justify-center gap-1 px-1 py-1 rounded-full
+                          text-[clamp(9px,1.8vw,12px)] font-medium transition-colors
+                          !bg-gray-200 !text-black
+                          hover:!bg-gray-300
+                          data-[state=active]:!bg-white data-[state=active]:!text-black
+                          dark:!bg-slate-800 dark:!text-white
+                          dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
+                          focus:outline-none focus:ring-0 truncate"
+              >
+                <Icon className="h-[clamp(11px,1.6vw,14px)] w-[clamp(11px,1.6vw,14px)] shrink-0" />
+                <span className="truncate">{label}</span>
+              </TabsTrigger>
+            ))}
           </TabsList>
 
           <TabsContent value="classify" className="space-y-6">
@@ -283,49 +252,40 @@ export default function App() {
 
             <TabsContent value="knowledge" className="space-y-6">
                 <Tabs value={knowledgeTab} onValueChange={setKnowledgeTab}>
-                    <TabsList className="w-full px-2 py-1 bg-muted dark:!bg-slate-800 rounded-full gap-2 flex justify-between h-10">
-                      <TabsTrigger
-                          value="guide"
-                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0"
-                      >
-                          <Camera className="h-4 w-4" />
-                          <span>Cara Foto</span>
-                      </TabsTrigger>
+                  <TabsList className="flex w-full items-center justify-start gap-2 overflow-x-auto rounded-full bg-muted p-2 dark:!bg-slate-800">
+                    <TabsTrigger
+                        value="guide"
+                        className="flex items-center justify-center gap-1 rounded-full py-1.5 text-xs font-medium transition-colors 
+                                  md:gap-2 md:py-2 md:text-sm
+                                  !bg-gray-200 !text-black hover:!bg-gray-300 data-[state=active]:!bg-white data-[state=active]:!text-black
+                                  dark:!bg-slate-800 dark:!text-white dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600"
+                    >
+                        <Camera className="h-4 w-4" />
+                        <span className="whitespace-nowrap">Cara Foto</span>
+                    </TabsTrigger>
 
-                      <TabsTrigger
-                          value="diseases"
-                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0"
-                      >
-                          <Leaf className="h-4 w-4" />
-                          <span>Penyakit</span>
-                      </TabsTrigger>
+                    <TabsTrigger
+                        value="diseases"
+                        className="flex items-center justify-center gap-1 rounded-full py-1.5 text-xs font-medium transition-colors 
+                                  md:gap-2 md:py-2 md:text-sm
+                                  !bg-gray-200 !text-black hover:!bg-gray-300 data-[state=active]:!bg-white data-[state=active]:!text-black
+                                  dark:!bg-slate-800 dark:!text-white dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600"
+                    >
+                        <Leaf className="h-4 w-4" />
+                        <span className="whitespace-nowrap">Penyakit</span>
+                    </TabsTrigger>
 
-                      <TabsTrigger
-                          value="prevention"
-                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors
-                        !bg-gray-200 !text-black
-                        hover:!bg-gray-300
-                        data-[state=active]:!bg-white data-[state=active]:!text-black
-                        dark:!bg-slate-800 dark:!text-white
-                        dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600 dark:data-[state=active]:!text-white
-                        focus:outline-none focus:ring-0"
-                      >
-                          <BookOpen className="h-4 w-4" />
-                          <span>Pencegahan</span>
-                      </TabsTrigger>
-                    </TabsList>
+                    <TabsTrigger
+                        value="prevention"
+                        className="flex items-center justify-center gap-1 rounded-full py-1.5 text-xs font-medium transition-colors 
+                                  md:gap-2 md:py-2 md:text-sm
+                                  !bg-gray-200 !text-black hover:!bg-gray-300 data-[state=active]:!bg-white data-[state=active]:!text-black
+                                  dark:!bg-slate-800 dark:!text-white dark:hover:!bg-slate-700 dark:data-[state=active]:!bg-slate-600"
+                    >
+                        <BookOpen className="h-4 w-4" />
+                        <span className="whitespace-nowrap">Pencegahan</span>
+                    </TabsTrigger>
+                </TabsList>
                     <TabsContent value="guide">
                         <ClassificationGuide />
                     </TabsContent>
