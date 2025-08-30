@@ -97,50 +97,50 @@ export function ClassificationHistory() {
             </CardHeader>
             <CardContent>
                 <div className="space-y-4">
-                    {history.map((item) => (
-                        <div
-                            key={item.id}
-                            className="flex items-center space-x-4 p-4 border rounded-lg dark:border-slate-700"
-                        >
-                            <img
-                                src={`http://127.0.0.1:5000${item.image}`}
-                                alt={item.disease}
-                                className="w-16 h-16 object-cover rounded-md"
-                                onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150'; }}
-                            />
-                            <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                    <h4 className="font-bold dark:text-white">{item.disease}</h4>
-                                    <Badge
-                                        variant={getBadgeVariant(item.severity)}
-                                        className="capitalize"
-                                    >
-                                        {item.severity}
-                                    </Badge>
-                                </div>
-                                <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-1 dark:text-slate-400">
-                                    <div className="flex items-center space-x-1">
-                                        <Calendar className="h-3 w-3" />
-                                        <span>{item.date}</span>
-                                    </div>
-                                    <span>Kepercayaan: {(item.confidence).toFixed(2)}%</span>
-                                </div>
-                                {item.image_filename && (
-                                    <p className="text-xs text-gray-500 mt-1 truncate">
-                                        File: {item.image_filename}
-                                    </p>
-                                )}
+                {history.map((item) => (
+                    <div
+                        key={item.id}
+                        className="flex items-start space-x-4 rounded-lg border p-3 dark:border-slate-700"
+                    >
+                        <img
+                            src={`http://127.0.0.1:5000${item.image}`}
+                            alt={item.disease}
+                            className="h-16 w-16 rounded-md object-cover sm:h-20 sm:w-20"
+                            onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/150'; }}
+                        />
+                        <div className="flex-1 space-y-1">
+                            <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between">
+                                <h4 className="font-bold capitalize dark:text-white">{item.disease}</h4>
+                                <Badge
+                                    variant={getBadgeVariant(item.severity)}
+                                    className="mt-1 capitalize sm:mt-0"
+                                >
+                                    {item.severity}
+                                </Badge>
                             </div>
-                            <Button
-                                size="sm"
-                                onClick={() => handleViewDetail(item)}
-                                className="!bg-white !text-gray-800 !border-gray-300 hover:!bg-gray-100 dark:!bg-slate-800 dark:!text-white dark:!border-neutral-700 dark:hover:!bg-slate-700"
-                            >
-                                <Eye className="h-4 w-4 mr-2" />
-                                Detail
-                            </Button>
+                            <div className="flex flex-col items-start space-y-1 text-sm text-muted-foreground dark:text-slate-400 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
+                                <div className="flex items-center space-x-1">
+                                    <Calendar className="h-3 w-3" />
+                                    <span>{item.date.split(' ')[0]}</span>
+                                </div>
+                                <span>Kepercayaan: {item.confidence.toFixed(2)}%</span>
+                            </div>
+                            {item.image_filename && (
+                                <p className="hidden pt-1 text-xs text-gray-500 sm:block sm:truncate">
+                                    File: {item.image_filename}
+                                </p>
+                            )}
                         </div>
-                    ))}
+                        <Button
+                            size="sm"
+                            onClick={() => handleViewDetail(item)}
+                            className="self-center !bg-white !text-gray-800 !border-gray-300 hover:!bg-gray-100 dark:!bg-slate-800 dark:!text-white dark:!border-neutral-700 dark:hover:!bg-slate-700"
+                        >
+                            <Eye className="h-4 w-4 sm:mr-2" />
+                            <span className="hidden sm:inline">Detail</span>
+                        </Button>
+                    </div>
+                ))}
                 </div>
             </CardContent>
         </Card>
